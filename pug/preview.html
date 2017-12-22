@@ -1,0 +1,21 @@
+<transition name="fade">
+  <div class="showcase" id="preview" v-if="!disabledPreview">
+    <div class="item">
+      <div class="photo"><img :src="photo" /></div>
+      <div class="content">
+        <h1>{{name}}</h1>
+        <h2>{{price}}</h2>
+        <pre>{{description}}</pre>
+        <hr/>
+        <h4>{{category}}</h4>
+      </div>
+    </div>
+    <hr/>
+    <div class="field has-addons has-addons-centered" v-if="showSubmitButton">
+      <p class="control" v-if="hideReplaceButton"><input class="button is-primary is-inverted" value="Publish" type="button" @click="publishData()" /></p>
+      <p class="control" v-if="!hideReplaceButton"><input class="button is-warning is-inverted" value="Republish" type="button" @click="republishData()" /></p>
+      <p class="control"><input class="button is-info is-inverted" value="Return" type="button" @click="hidePreview()" /></p>
+    </div>
+    <div class="control" v-if="!showSubmitButton"><input class="button is-info is-inverted" value="Return" type="button" @click="hidePreview()" /></div>
+  </div>
+</transition>

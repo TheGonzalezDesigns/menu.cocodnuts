@@ -1,0 +1,22 @@
+<transition name="fade">
+  <form class="field is-grouped is-grouped-centered" v-if="selection == 'enter'">
+    <div class="columns">
+      <div class="form-column"><label class="label">Name</label>
+        <div class="control"><input class="input" v-model="name" placeholder="Name of the item." type="text" /></div><label class="label">Category</label>
+        <div class="control"><input class="input" v-model="category" placeholder="Category of the item." type="text" /></div><label class="label">Price</label>
+        <div class="control"><input class="input" v-model="price" placeholder="Price of the item." type="text" /></div><label class="label">Photo</label>
+        <div class="control"><input class="input" v-model="photo" placeholder="Photo of the item." type="text" /></div>
+      </div>
+      <div class="form-column"><label class="label">Description</label>
+        <div class="control"><textarea class="input" v-model="description" placeholder="Description of the item."></textarea></div>
+      </div>
+    </div>
+    <hr/>
+    <div class="field has-addons has-addons-centered">
+      <p class="control" v-if="hideReplaceButton"><input class="button is-primary is-inverted" value="Review" type="button" @click="reviewData()" :disabled="disabledReviewButton" /></p>
+      <p class="control" v-if="!hideReplaceButton"><input class="button is-danger" value="Cancel" type="button" @click="cancelData()" /></p>
+      <p class="control" v-if="!hideReplaceButton"><input class="button is-warning" value="Replace" type="button" @click="replaceData()" :disabled="disabledReplaceButton" /></p>
+      <p class="control"><input class="button is-danger is-inverted" value="Clear Entry" type="button" @click="resetData(true)" /></p>
+    </div>
+  </form>
+</transition>
