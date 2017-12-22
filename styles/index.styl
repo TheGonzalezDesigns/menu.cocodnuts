@@ -1,0 +1,87 @@
+@import "var.styl"
+@import "item.styl"
+@import "animations.styl"
+@import "options.styl"
+
+body
+	display flex
+	width 100vw
+	min-height 100vh
+	align-content center
+	justify-content center
+	align-items center
+	flex-direction column
+	margin 0
+	padding 0 2em
+	line-height initial
+	border none !important
+	overflow-y auto
+	overflow-x hidden
+	background-color: Colores.Azul.Gris
+	background-image: linear-gradient(45deg, lighten(Colores.Azul.Gris, 20%), lighten(Colores.Verde.Vert, 80%))
+	.title
+		padding-bottom 0.25em
+	#app
+		flex-direction column
+		#title
+			text-align center
+			margin 5vh 0
+			h1
+				font-family: 'Poppins', sans-serif
+				text-shadow 2px 2px 4px rgba(#555, 0.5)
+				color: Colores.Azul.Nubes
+		form
+			flex-wrap wrap
+			flex-direction column
+			margin 0 1em
+			label
+				margin-top 0.5em
+			.form-column
+				margin 0.5em
+				flex-direction column
+			.form-row
+				margin 0.5em
+				display flex
+				justify-content center
+				align-content center
+			textarea
+				height 100%
+				overflow: auto
+		#errors
+			.error
+				margin 1em
+		.options
+			display flex
+			flex-direction row
+			justify-content center
+			align-content center
+			input
+				margin 1em
+
+		input[placeholder~=Name]
+		input[placeholder~=Category]
+		input[placeholder~=category]
+			text-transform capitalize
+body.showOverflow
+	overflow-y auto
+body.hideOverflow
+	overflow-x hidden
+hr
+	height 12px
+	border 0
+	border-bottom 1px solid rgba(255, 255, 255, 0.3)
+	border-top 1px solid rgba(0, 0, 0, 0.1)
+	margin 10px 0
+.showcase
+	position fixed
+	top 0
+	left 0
+	display flex
+	width 100vw
+	height 100vh
+	align-content center
+	justify-content center
+	align-items center
+	background-color: rgba(#444, 0.75)
+	flex-direction column
+	z-index 9999
