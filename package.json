@@ -1,0 +1,29 @@
+{
+  "name": "menu.cocodnuts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheGonzalezDesigns/menu.cocodnuts.git"
+  },
+  "author": "hugo@thegonzalez.design",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheGonzalezDesigns/menu.cocodnuts/issues"
+  },
+  "homepage": "https://github.com/TheGonzalezDesigns/menu.cocodnuts#readme",
+  "dependencies": {
+    "vue": "^2.5.13"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "pug": "^2.0.0-rc.4",
+    "stylus": "^0.54.5",
+    "vue-server-renderer": "^2.5.13",
+    "webpack": "^3.10.0"
+  }
+}

@@ -1,9 +1,0 @@
-<transition name="fade">
-  <div class="field has-addons" v-if="selection == 'view'">
-    <p class="control"><span class="select"><select class="options" v-model="searchCategory"><option value="default" disabled="disabled" hidden="hidden">Select a category...</option><option value="name">{{ capatalize('name') }}</option><option value="category">{{ capatalize('category') }}</option><option value="price">{{ capatalize('price') }}</option><option value="description">{{ capatalize('description') }}</option></select></span></p>
-    <p
-      class="control"><input class="input" placeholder="Pick a category then type" type="text" v-model="searchValue" :disabled="disabledSearchInput" /></p>
-      <p class="control"><input class="button is-danger" value="Clear" type="button" @click="searchValue = ''" :disabled="disabledSearchButton" /></p>
-      <p class="control"><input class="button is-info is-inverted" value="Search" type="button" @click="search()" :disabled="disabledSearchButton" /></p>
-  </div>
-</transition>
