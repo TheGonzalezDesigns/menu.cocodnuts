@@ -107,6 +107,18 @@
             <div class="control" v-if="!showSubmitButton"><input class="button is-info is-inverted" value="Return" type="button" @click="hidePreview()"></div>
           </div>
         </transition>
+        <transition name="fade">
+          <div class="showcase" v-if="alert.show">
+            <article class="message" :class="alert.class">
+              <div class="message-header">
+                <p>{{ alert.title }}</p>
+              </div>
+              <div class="message-body">
+                <h1>{{ alert.message }}</h1>
+              </div>
+            </article>
+          </div>
+        </transition>
       </div>
     </transition>
   </div>

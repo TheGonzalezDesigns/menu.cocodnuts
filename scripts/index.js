@@ -1,3 +1,7 @@
+const fs = require("fs");
+const fileName = "./menu.json";
+const file = require(fileName);
+
 const vm = new Vue({
 	el: "#app",
 	data: {
@@ -31,7 +35,14 @@ const vm = new Vue({
 		showSubmitButton: true,
 		hideReplaceButton: true,
 		overflow: true,
-		showTitle: false
+		showTitle: false,
+		alert: {
+			show: false,
+			class: "",
+			type: "",
+			message: "",
+			title: ""
+		}
 	},
 	methods: {
 		disability() {
@@ -92,6 +103,7 @@ const vm = new Vue({
 		publishData() {
 			this.pushData();
 			this.resetData(true);
+			//this.updateFile();
 		},
 		checkData(searchForCopies = true) {
 			var errors = [];
@@ -310,6 +322,41 @@ const vm = new Vue({
 		cancelData() {
 			this.hideReplaceButton = true;
 			this.eraseData();
+		},
+		updateFile() {
+			const data = JSON.stringify(file, null, 2);
+			fs.writeFile(fileName, data, err => {
+				if (err)
+					return this._alert(
+						"Publish failed. Reload the page.",
+						"is-danger"
+					);
+				this._alert("Publish successful.", "successful");
+			});
+		},
+		_alert(message, type) {
+			this.alert.message = message;
+			switch (type) {
+				case "successful":
+					this.alert.class = "is-primary";
+					this.alert.title = "Success";
+					break;
+				case "danger":
+					this.alert.class = "is-danger";
+					this.alert.title = "Danger";
+					break;
+				case "warning":
+					this.alert.class = "is-warning";
+					this.alert.title = "Warning";
+					break;
+				default:
+					this.alert.class = "is-info";
+					this.alert.title = "Attention";
+			}
+			this.alert.show = true;
+			setTimeout(function() {
+				vm.alert.show = false;
+			}, 2000);
 		}
 	},
 	watch: {
