@@ -1,4 +1,6 @@
-const css = require('../styles/index.styl');
+import css from '../styles/index.styl';
+import bulma from 'bulma.styl';
+import Vue from 'vue';
 
 const vm = new Vue({
     el: "#app",
@@ -322,7 +324,7 @@ const vm = new Vue({
             this.eraseData();
         },
         updateFile() {
-            const data = JSON.stringify(file, null, 2);
+            //const data = JSON.stringify(file, null, 2);
             /*fs.writeFile(fileName, data, err => {
                 if (err)
                     return this._alert(
@@ -401,7 +403,7 @@ const vm = new Vue({
             this.resetData();
             this.resetSearch();
         }
-    }
+    },
 });
 global.vm = vm;
 setTimeout(function() {

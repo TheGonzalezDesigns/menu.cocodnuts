@@ -1,27 +1,28 @@
-var poststylus = require('poststylus'),
-    webpack = require('webpack'),
-    HtmlWebpackPlugin = require('html-webpack-plugin');
+const poststylus = require('poststylus');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
     entry: './src/scripts/index.js',
     output: {
-        path: __dirname + '/dist',
-        filename: "app.bundle.js"
+        path: path.resolve( __dirname, '/dist'),
+        filename: 'index.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
             minify: {
-                collapseWhitespace: false
+                collapseWhitespace: true,
             },
             hash: true,
-            template: './src/pug/index.pug'
-        })
+            template: './src/pug/index.pug',
+        }),
     ],
     module: {
         rules: [
             {
                 test: /\.pug$/,
-                use: 'pug-loader'
+                use: 'pug-loader',
             },
             {
                 test: /\.css$/,
@@ -33,8 +34,8 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                loader: "babel-loader",
-                exclude: /node_modules/
+                loader: 'babel-loader',
+                exclude: /node_modules/,
             }
         ],
     },
@@ -42,9 +43,17 @@ module.exports = {
         new webpack.LoaderOptionsPlugin({
             options: {
                 stylus: {
-                    use: [poststylus([ 'autoprefixer', 'rucksack-css' ])]
-                }
-            }
-        })
-    ]
-}
+                    use: [poststylus(['autoprefixer', 'rucksack-css'])],
+                },
+            },
+        }),
+        new webpack.optimize.UglifyJsPlugin()
+    ],
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: false,
+        port: 8080,
+        stats: 'minimal',
+        open: true,
+    },
+};
