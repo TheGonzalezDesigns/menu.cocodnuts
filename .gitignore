@@ -5,4 +5,4 @@
 /node_modules/
 menu.json
 .brackets.json
-.package-lock.json
+package-lock.json
