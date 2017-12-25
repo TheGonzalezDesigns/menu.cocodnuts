@@ -6,7 +6,7 @@ const path = require('path');
 module.exports = {
     entry: './src/scripts/index.js',
     output: {
-        path: path.resolve( __dirname, '/dist'),
+        path: path.join( __dirname, '/dist'),
         filename: 'index.js',
     },
     plugins: [
@@ -16,13 +16,13 @@ module.exports = {
             },
             hash: true,
             template: './src/pug/index.pug',
-        }),
+        })
     ],
     module: {
         rules: [
             {
                 test: /\.pug$/,
-                use: 'pug-loader',
+                use: 'pug-html-loader',
             },
             {
                 test: /\.css$/,
@@ -54,6 +54,6 @@ module.exports = {
         compress: true,
         port: 8080,
         stats: 'minimal',
-        open: false,
+        open: true,
     },
 };
