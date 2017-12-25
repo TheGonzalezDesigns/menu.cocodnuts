@@ -3,10 +3,19 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
+const PATHS = {
+    src: path.join( __dirname, '/src'),
+    dist: path.join( __dirname, '/dist'),
+};
+const FILES = {
+    entry: path.join(PATHS.src, '/scripts/index.js'),
+    template: path.join(PATHS.src, '/pug/index.pug'),
+};
+
 module.exports = {
-    entry: './src/scripts/index.js',
+    entry: FILES.entry,
     output: {
-        path: path.join( __dirname, '/dist'),
+        path: PATHS.dist,
         filename: 'index.js',
     },
     plugins: [
@@ -15,14 +24,15 @@ module.exports = {
                 collapseWhitespace: true,
             },
             hash: true,
-            template: './src/pug/index.pug',
+            template: FILES.template,
         })
     ],
     module: {
         rules: [
             {
                 test: /\.pug$/,
-                use: 'pug-html-loader',
+                loader: 'pug-loader',
+                //use: 'pug!pug-loader!pug-html-loader',
             },
             {
                 test: /\.css$/,
@@ -50,10 +60,15 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin()
     ],
     devServer: {
-        contentBase: path.join(__dirname, 'dist'),
+        contentBase: PATHS.dist,
         compress: true,
         port: 8080,
         stats: 'minimal',
         open: true,
     },
+    resolve: {
+        alias: {
+            vue: 'vue/dist/vue.js'
+        }
+    }
 };
