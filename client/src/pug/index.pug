@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    include struct/head.pug
+    body
+        #app: transition(name="fade"): #all(v-if="showTitle")
+            #title
+                h1.title.is-2 Coco D'Nuts
+                h2.subtitle.is-4 Menu Editor
+            include components/select.pug
+            hr(v-if="selection != 'default'")
+            include components/search.pug
+            include components/enter.pug
+            include components/data.pug
+            hr(v-if="selection != 'default'")
+            include components/errors.pug
+            include components/preview.pug
+            include components/alert.pug
+        script(src="index.js")

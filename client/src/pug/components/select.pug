@@ -1,0 +1,3 @@
+.options: .select: select(v-model="selection" title="Select an option...")
+	option(value="default" disabled hidden) Select an option...
+		option(v-for="option in options" :value="option")="{{ capatalize(option) }} Data"

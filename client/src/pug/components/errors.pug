@@ -1,0 +1,9 @@
+transition(name="fade"): #errors.showcase(v-if="!disabledErrors")
+	article.message.is-warning
+		.message-header
+			p Warning
+			button.delete(aria-label='delete' @click="redisable()")
+		.message-body
+			h3.is-3 The following errors have been found with the data you entered:
+			ol
+				li.error(v-for="error in errors") {{error}}
