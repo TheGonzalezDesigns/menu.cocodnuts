@@ -1,0 +1,8 @@
+transition(name="fade"): .field.has-addons(v-if="selection == 'view'")
+	p.control: span.select: select(v-model="searchCategory").options
+		option(value="default" disabled hidden) Select a category...
+		for option in ["name", "category", "price", "description"]
+			option(value=option)="{{ capatalize('" + option + "') }}"
+	p.control: input.input(placeholder="Pick a category then type" type="text" v-model="searchValue" :disabled="disabledSearchInput")
+	p.control: input.button.is-danger(value='Clear' type="button" @click="searchValue = ''" :disabled="disabledSearchButton")
+	p.control: input.button.is-info.is-inverted(value='Search' type="button" @click="search()" :disabled="disabledSearchButton")

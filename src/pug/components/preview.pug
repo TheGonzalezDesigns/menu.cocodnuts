@@ -1,0 +1,16 @@
+transition(name="fade"): #preview.showcase(v-if="!disabledPreview")
+	.item
+		.photo: img(:src="photo")
+		.content
+			h1 {{name}}
+			h2 {{price}}
+			pre.
+				{{description}}
+			hr
+			h4 {{category}}
+	hr
+	.field.has-addons.has-addons-centered(v-if="showSubmitButton")
+		p(v-if="hideReplaceButton").control: input.button.is-primary.is-inverted(value="Publish" type="button" @click="publishData()")
+		p(v-if="!hideReplaceButton").control: input.button.is-warning.is-inverted(value="Republish" type="button" @click="republishData()")
+		p.control: input.button.is-info.is-inverted(value="Return" type="button" @click="hidePreview()")
+	.control(v-if="!showSubmitButton"): input.button.is-info.is-inverted(value="Return" type="button" @click="hidePreview()")
