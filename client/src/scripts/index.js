@@ -1,7 +1,7 @@
 import css from '../styles/index.styl';
 import bulma from 'bulma.styl';
 import Vue from 'vue';
-import VueAxiosPlugin from 'vue-axios-plugin'
+//import VueAxiosPlugin from 'vue-axios-plugin'
 
 const vm = new Vue({
     el: "#app",
@@ -325,16 +325,7 @@ const vm = new Vue({
             this.eraseData();
         },
         updateFile() {
-            //const data = JSON.stringify(file, null, 2);
-            /*fs.writeFile(fileName, data, err => {
-                if (err)
-                    return this._alert(
-                        "Publish failed. Reload the page.",
-                        "is-danger"
-                    );
-                this._alert("Publish successful.", "successful");
-            });*/
-            axios.post('/update', this.menu).then(response => {
+           /* axios.post('/update', this.menu).then(response => {
                 if(response.status === 404){
                     vm._alert("Could not connect to server. Reload page.", "danger");
                 }
@@ -344,7 +335,7 @@ const vm = new Vue({
                 return response
             }).catch(error => {
                 vm._alert(error, "danger");
-            });
+            });*/
         },
         _alert(message, type) {
             this.alert.message = message;

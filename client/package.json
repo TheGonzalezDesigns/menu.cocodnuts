@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/TheGonzalezDesigns/menu.cocodnuts#readme",
   "dependencies": {
+    "axios": "^0.17.1",
     "bulma.styl": "^0.6.11",
     "express": "^4.16.2",
     "vue": "^2.5.13",
-    "vue-axios-plugin": "^1.2.2"
+    "vue-axios-plugin": "^1.2.2",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "argv": "0.0.2",
