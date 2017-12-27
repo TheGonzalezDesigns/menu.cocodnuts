@@ -32,17 +32,21 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader',
-            },
-            {
                 test: /\.styl$/,
                 loader: 'style-loader!css-loader!stylus-loader',
             },
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/,
+                exclude: /node_modules|webpack.js/,
+            },
+            {
+                test: /\.js$/,
+                loader: 'eslint-loader',
+                exclude: /node_modules|webpack.js/,
+                options: {
+                    fix: true
+                }
             }
         ],
     },
