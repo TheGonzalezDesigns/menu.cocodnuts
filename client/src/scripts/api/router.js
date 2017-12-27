@@ -21,7 +21,7 @@ function handleError(error) {
 
 function requestMenu(route) {
 	let req = {
-		res: 'hjhjj',
+		res: '',
 		valid: true
 	}
 	axios.get(route)
@@ -29,10 +29,16 @@ function requestMenu(route) {
 		.catch(err => req.valid = handleError(err))
 	return req
 }
+
 function updateMenu(data) {
+	let req = {
+		res: '',
+		valid: true
+	}
 	axios.post('/publish', data)
 		.then(res => console.log(res))
-		.catch(err => handleError(err))
+		.catch(err => req.valid = handleError(err))
+	return req.valid
 }
 
 exports.requestMenu = requestMenu
