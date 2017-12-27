@@ -10,3 +10,4 @@
 menu.json
 .brackets.json
 package-lock.json
+./*/dist/
