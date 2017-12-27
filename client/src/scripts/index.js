@@ -26,6 +26,13 @@ const vm = new Vue({
 			photo: '',
 			description: ''
 		},
+		backup: {
+			name: '',
+			category: '',
+			price: '',
+			photo: '',
+			description: ''
+		},
 		errors: [],
 		errorCodes: [0, 0, 0, 0, 0], //ltr mirrors ttb
 		disabledPreview: true,
@@ -74,6 +81,22 @@ const vm = new Vue({
 			this.price = data.price
 			this.photo = data.photo
 			this.description = data.description
+			//this.setBackup()
+			console.log('Name:' + this.name)
+		},
+		transferData(src, dest) {
+			dest.name = src.name
+			dest.category = src.category
+			dest.price = src.price
+			dest.photo = src.photo
+			dest.description = src.description
+		},
+		setBackup() {
+			const data = this.getData()
+			this.transferData(data, this.backup)
+		},
+		getBackup() {
+			this.transferData(this.backup, this)
 		},
 		eraseData() {
 			this.name = ''
@@ -96,7 +119,7 @@ const vm = new Vue({
 			this.menu.push(data)
 		},
 		reviewData(searchForCopies = true) {
-			this.getData()
+			//this.setBackup()
 			const check = this.checkData(searchForCopies)
 			if (check.valid) {
 				this.previewData()
@@ -318,30 +341,29 @@ const vm = new Vue({
 		republishData() {
 			this.deleteData()
 			this.publishData()
-			this.cancelData()
 		},
 		cancelData() {
 			this.hideReplaceButton = true
 			this.eraseData()
 		},
 		updateFile() {
-			/* axios.post('/update', this.menu).then(response => {
-                if(response.status === 404){
-                    vm._alert("Could not connect to server. Reload page.", "danger");
-                }
-                if(response.status === 500){
-                    vm._alert("Could not publish data to server. Reload page.", "danger");
-                }
-                return response
-            }).catch(error => {
-                vm._alert(error, "danger");
-            });*/
 			let data = {
 				'menu': this.menu
 			}
-			router.updateMenu(data)
+			if (router.updateMenu(data).valid) {
+				this._alert('Publish succeeded', 'successful')
+				this.cancelData()
+			} else {
+				this._alert('Publish failed.', 'danger')
+				setTimeout(() => {
+					vm._alert('This item was added to your temporary menu item list, here.' + '\n' +
+						'It will be added to your actual menu on the next succesful try' + '\n' +
+						'However, it will be deleted when you exit this page', '', 5000)
+				}, 3000)
+				this.getBackup()
+			}
 		},
-		_alert(message, type) {
+		_alert(message, type = '', duration = 2500) {
 			this.alert.message = message
 			switch (type) {
 			case 'successful':
@@ -363,7 +385,7 @@ const vm = new Vue({
 			this.alert.show = true
 			setTimeout(function () {
 				vm.alert.show = false
-			}, 2500)
+			}, duration)
 		}
 	},
 	watch: {

@@ -1,5 +1,3 @@
 transition(name="fade"): .showcase(v-if="alert.show")
-	article.message(:class="alert.class")
-		.message-header
-			p="{{ alert.title }}"
-		.message-body: h1="{{ alert.message }}"
+	.notification(:class="alert.class") {{ alert.message }}
+		button.delete(@click="alert.show = false")
