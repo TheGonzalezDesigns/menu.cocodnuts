@@ -42,6 +42,7 @@
 		"html-webpack-plugin": "^2.30.1",
 		"poststylus": "^1.0.0",
 		"pug": "^2.0.0-rc.4",
+		"pug-cli": "^1.0.0-alpha6",
 		"rucksack-css": "^1.0.2",
 		"style-loader": "^0.19.1",
 		"stylus": "^0.54.5",
