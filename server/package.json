@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "nodemon ./src/index.js",
 		"lint": "eslint --fix src/*.js || true",
-		"init": "git fetch && git pull origin master && npm i && npm start && cd .."
+		"init": "npm i && npm start"
 	},
 	"author": "",
 	"license": "ISC",
