@@ -1,13 +1,10 @@
 # https://git-scm.com/docs/gitignore
 # https://help.github.com/articles/ignoring-files
 # Example .gitignore files: https://github.com/github/gitignore
-/bower_components/
-<<<<<<< HEAD
+*/bower_components/
 */node_modules/
-=======
-/node_modules/
->>>>>>> 394596323f5cfa794d177cb76c7424e9e14bef6c
 menu.json
 .brackets.json
 package-lock.json
-**/dist/
+index.html
+index.js
