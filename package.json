@@ -1,7 +1,7 @@
 {
 	"scripts": {
-		"start": " && cd server && npm start",
-		"client": "cd client && npm run init && cp client/dist/* ./",
-		"server": "cd server && npm run init"
+		"start": "npm run client && npm run server",
+		"client": "cd client && npm run init && cd .. && cp client/dist/* ./",
+		"server": "cd server && npm run init && cd .."
 	}
 }
