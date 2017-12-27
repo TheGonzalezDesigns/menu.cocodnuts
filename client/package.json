@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "webpack -p",
+    "start": "webpack -p",
     "dev": "webpack-dev-server -d"
   },
   "repository": {
@@ -22,8 +22,7 @@
     "bulma.styl": "^0.6.11",
     "express": "^4.16.2",
     "vue": "^2.5.13",
-    "vue-axios-plugin": "^1.2.2",
-    "vue-router": "^3.0.1"
+    "vue-axios-plugin": "^1.2.2"
   },
   "devDependencies": {
     "argv": "0.0.2",
