@@ -1,7 +1,7 @@
 import css from '../styles/index.styl';
 import bulma from 'bulma.styl';
 import Vue from 'vue';
-//import VueAxiosPlugin from 'vue-axios-plugin'
+import router from '@/api/router'
 
 const vm = new Vue({
     el: "#app",
@@ -336,6 +336,7 @@ const vm = new Vue({
             }).catch(error => {
                 vm._alert(error, "danger");
             });*/
+            router.updateMenu({this.menu});
         },
         _alert(message, type) {
             this.alert.message = message;
@@ -407,22 +408,14 @@ const vm = new Vue({
             this.resetSearch();
         }
     },
+    created() {
+        const req = router.requestMenu('/');
+        if (req.valid) this.menu = req.data;
+        else this.alert('Could not retrieve the menu from the server. Please reload the page.',
+                      'danger');
+    }
 });
 global.vm = vm;
 setTimeout(function() {
     vm.showTitle = true;
 }, 2000);
-
-/*const checkStatus = (response) => {
-    if(response.status === 404){
-        vm._alert("Could not connect to server. Reload page.", "danger");
-    }
-    if(response.status === 500){
-        vm._alert("Could not publish data to server. Reload page.", "danger");
-    }
-    return response
-}
-
-Vue.use(VueAxiosPlugin, {
-    checkStatus: checkStatus
-})*/
