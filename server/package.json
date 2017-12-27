@@ -1,25 +1,26 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon ./src/index.js",
-    "lint": "eslint --fix src/*.js || true"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "body-parser": "^1.18.2",
-    "cors": "^2.8.4",
-    "eslint": "^4.14.0",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "express": "^4.16.2",
-    "morgan": "^1.9.0",
-    "nodemon": "^1.14.3"
-  }
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon ./src/index.js",
+		"lint": "eslint --fix src/*.js || true",
+		"init": "git fetch && git pull origin master && npm i && npm start && cd .."
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"body-parser": "^1.18.2",
+		"cors": "^2.8.4",
+		"eslint": "^4.14.0",
+		"eslint-config-standard": "^11.0.0-beta.0",
+		"eslint-plugin-import": "^2.8.0",
+		"eslint-plugin-node": "^5.2.1",
+		"eslint-plugin-promise": "^3.6.0",
+		"eslint-plugin-standard": "^3.0.1",
+		"express": "^4.16.2",
+		"morgan": "^1.9.0",
+		"nodemon": "^1.14.3"
+	}
 }

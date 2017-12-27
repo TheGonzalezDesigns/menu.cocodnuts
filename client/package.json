@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "npm run pug && webpack -p",
 		"dev": "npm run pug && webpack-dev-server -d",
-		"pug": "pug src/pug/index.pug -o dist/"
+		"pug": "pug src/pug/index.pug -o dist/",
+		"init": "git fetch && git pull origin master && npm i && npm start && cd .."
 	},
 	"repository": {
 		"type": "git",

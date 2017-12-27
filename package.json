@@ -1,0 +1,7 @@
+{
+	"scripts": {
+		"start": " && cd server && npm start",
+		"client": "cd client && npm run init && cp client/dist/* ./",
+		"server": "cd server && npm run init"
+	}
+}
