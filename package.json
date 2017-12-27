@@ -3,6 +3,7 @@
 		"start": "npm run git && npm run client && npm run server",
 		"client": "cd client && npm run init && cd .. && cp client/dist/* ./",
 		"server": "cd server && npm run init && cd ..",
-		"git": "git fetch && git pull origin master"
+		"git": "git fetch && git pull origin master",
+		"meta": "npm run git && clear && npm start"
 	}
 }
