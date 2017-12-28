@@ -39,6 +39,9 @@ module.exports = {
 				test: /\.js$/,
 				loader: 'babel-loader',
 				exclude: /node_modules|webpack.js/,
+				options: {
+					presets: ['babel-preset-env']
+				}
             },
 			{
 				test: /\.js$/,
@@ -47,7 +50,7 @@ module.exports = {
 				options: {
 					fix: true
 				}
-            }
+			}
         ],
 	},
 	plugins: [
