@@ -61,8 +61,8 @@ const vm = new Vue({
 				this.price &&
 				this.photo &&
 				this.description ?
-					false :
-					true
+				false :
+				true
 			this.disabledReviewButton = disability
 			this.disabledReplaceButton = disability
 		},
@@ -379,21 +379,21 @@ const vm = new Vue({
 		_alert(message, type = '', duration = 2500) {
 			this.alert.message = message
 			switch (type) {
-			case 'successful':
-				this.alert.class = 'is-success'
-				this.alert.title = 'Success'
-				break
-			case 'danger':
-				this.alert.class = 'is-danger'
-				this.alert.title = 'Danger'
-				break
-			case 'warning':
-				this.alert.class = 'is-warning'
-				this.alert.title = 'Warning'
-				break
-			default:
-				this.alert.class = 'is-info'
-				this.alert.title = 'Attention'
+				case 'successful':
+					this.alert.class = 'is-success'
+					this.alert.title = 'Success'
+					break
+				case 'danger':
+					this.alert.class = 'is-danger'
+					this.alert.title = 'Danger'
+					break
+				case 'warning':
+					this.alert.class = 'is-warning'
+					this.alert.title = 'Warning'
+					break
+				default:
+					this.alert.class = 'is-info'
+					this.alert.title = 'Attention'
 			}
 			this.alert.show = true
 			setTimeout(function () {
@@ -401,8 +401,8 @@ const vm = new Vue({
 			}, duration)
 		},
 		initiate() {
+			vm.showTitle = true
 			let callback = res => {
-				vm.showTitle = true
 				if (router.validate(res)) {
 					let data = res.data
 					vm._alert('Retrieved the menu from the server!', 'successful')
