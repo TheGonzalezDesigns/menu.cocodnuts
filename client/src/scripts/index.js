@@ -2,7 +2,7 @@
 import bulma from 'bulma.styl'
 import css from '../styles/index.styl'
 import Vue from 'vue'
-import router from './api/router'
+import router from './network/router'
 
 const vm = new Vue({
 	el: '#app',
@@ -177,9 +177,7 @@ const vm = new Vue({
 			)
 			if (searchForCopies) {
 				if (this.menu.length)
-					this.menu.forEach(
-						item => (item.name == this.name ? instance++ : 0)
-					)
+					this.menu.forEach(item => (item.name == this.name ? instance++ : 0))
 				if (instance) {
 					errors.push(
 						instance +
@@ -301,6 +299,13 @@ const vm = new Vue({
 		capatalize(text) {
 			return text.charAt(0).toUpperCase() + text.slice(1)
 		},
+		infinitize(text) {
+			let l = text.length - 1
+			if (text.charAt(l) == 'e') {
+				text += 'd'
+			} else text += 'ed'
+			return text
+		},
 		editData() {
 			this.setData(this.getItem())
 			this.hideReplaceButton = false
@@ -315,6 +320,8 @@ const vm = new Vue({
 		deleteData() {
 			this.menu.splice(this.index, 1)
 			this.search()
+			this.updateFile('delete', 'from')
+
 		},
 		setIndex() {
 			this.index = this.item != 'default' ? parseInt(this.item) : -1
@@ -346,22 +353,28 @@ const vm = new Vue({
 			this.hideReplaceButton = true
 			this.eraseData()
 		},
-		updateFile() {
+		updateFile(action = 'publish', prep = 'to') {
+			let callback = res => {
+				let upper = this.capatalize(action)
+				let infi = this.infinitize(action)
+				if (router.validate(res)) {
+					vm._alert((upper + ' succeeded'), 'successful')
+					vm.cancelData()
+				} else {
+					vm._alert((upper + ' failed.'), 'danger')
+					setTimeout(() => {
+						vm._alert(
+							'This item was ' + infi + prep + ' your temporary menu, here.' + '\n' +
+							'It will be ' + infi + prep + ' your actual menu on the next succesful try' + '\n' +
+							'However, this action may not be applied to your actual menu when you exit this page', '', 5000)
+					}, 4000)
+				}
+			}
 			let data = {
 				'menu': this.menu
 			}
-			if (router.updateMenu(data).valid) {
-				this._alert('Publish succeeded', 'successful')
-				this.cancelData()
-			} else {
-				this._alert('Publish failed.', 'danger')
-				setTimeout(() => {
-					vm._alert('This item was added to your temporary menu item list, here.' + '\n' +
-						'It will be added to your actual menu on the next succesful try' + '\n' +
-						'However, it will be deleted when you exit this page', '', 5000)
-				}, 3000)
-				this.getBackup()
-			}
+			console.log('Publishing..')
+			router.updateMenu(data, callback)
 		},
 		_alert(message, type = '', duration = 2500) {
 			this.alert.message = message
@@ -386,6 +399,19 @@ const vm = new Vue({
 			setTimeout(function () {
 				vm.alert.show = false
 			}, duration)
+		},
+		initiate() {
+			let callback = res => {
+				vm.showTitle = true
+				if (router.validate(res)) {
+					let data = res.data
+					vm._alert('Retrieved the menu from the server!', 'successful')
+					vm.menu = data.menu
+				} else this._alert('Could not retrieve the menu from the server. Please reload the page.', 'danger')
+			}
+			console.log('Initiating..')
+			router.requestMenu(callback)
+
 		}
 	},
 	watch: {
@@ -435,19 +461,8 @@ const vm = new Vue({
 	},
 	mounted() {
 		this.$nextTick(() => {
-			const req = router.requestMenu('/')
-			setTimeout(() => {
-				vm.showTitle = true
-			}, 1500)
-			setTimeout(() => {
-				if (req.valid) {
-					vm.$el.menu = req.res
-					this._alert('Retrieved the menu from the server!',
-						'successful')
-				} else this._alert('Could not retrieve the menu from the server. Please reload the page.',
-					'danger')
-			}, 2000)
+			this.initiate()
 		})
 	}
 })
-global.vm = vm
+//global.vm = vm
