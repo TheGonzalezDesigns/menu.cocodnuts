@@ -3,21 +3,20 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 const handle = require('./handle.js')
-const app = express()
+const server = express()
 
-//app.use(morgan('combined'))
-app.use(bodyParser.json())
+server.use(morgan('combined'))
+server.use(bodyParser.json())
+server.use(cors())
 
-app.get('/', (req, res) => {
-  res.send(handle.get())
+server.get('/getData', (req, res) => {
+	res.send(handle.get())
 })
 
-app.get('/getData', (req, res) => {
-  res.send(handle.get())
+server.post('/publish', (req, res) => {
+	res.send(handle.publish({
+		"menu": req.body.menu
+	}))
 })
 
-app.post('/publish', (req, res) => {
-  res.send(handle.publish({"menu": req.body.menu}))
-})
-
-app.listen(process.env.PORT || 8081)
+server.listen(process.env.PORT || 8081)
