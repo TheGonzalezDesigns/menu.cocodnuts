@@ -1,6 +1,7 @@
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const poststylus = require('poststylus');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const PATHS = {
@@ -33,7 +34,10 @@ module.exports = {
 		rules: [
 			{
 				test: /\.styl$/,
-				loader: 'style-loader!css-loader!stylus-loader',
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: ['css-loader', 'stylus-loader']
+				}),
             },
 			{
 				test: /\.js$/,
@@ -61,7 +65,8 @@ module.exports = {
 				},
 			},
 		}),
-        new webpack.optimize.UglifyJsPlugin()
+        new webpack.optimize.UglifyJsPlugin(),
+		new ExtractTextPlugin('index.css')
     ],
 	devServer: {
 		contentBase: PATHS.dist,
@@ -72,7 +77,8 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			vue: 'vue/dist/vue.js'
+			vue: 'vue/dist/vue.js',
+			normalize: 'normalize/index.styl'
 		}
 	}
 };
