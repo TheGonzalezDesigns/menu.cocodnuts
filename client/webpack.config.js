@@ -54,6 +54,10 @@ module.exports = {
 				options: {
 					fix: true
 				}
+			},
+			{
+				test: /.pug$/,
+				use: 'pug-loader'
 			}
         ],
 	},
@@ -66,7 +70,12 @@ module.exports = {
 			},
 		}),
         new webpack.optimize.UglifyJsPlugin(),
-		new ExtractTextPlugin('index.css')
+		new ExtractTextPlugin('index.css'),
+		new HtmlWebpackPlugin({
+			inject: true,
+			template: '!!pug-loader!src/pug/index.pug',
+			mobile: true
+		})
     ],
 	devServer: {
 		contentBase: PATHS.dist,
