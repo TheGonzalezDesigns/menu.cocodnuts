@@ -19,17 +19,6 @@ module.exports = {
 		path: PATHS.dist,
 		filename: 'index.js',
 	},
-	plugins: [
-        new HtmlWebpackPlugin({
-			minify: {
-				collapseWhitespace: true,
-			},
-			hash: true,
-			mobile: true,
-			template: FILES.template,
-			title: "Testing!"
-		})
-    ],
 	module: {
 		rules: [
 			{
@@ -74,7 +63,11 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			inject: true,
 			template: '!!pug-loader!src/pug/index.pug',
-			mobile: true
+			mobile: true,
+			minify: {
+				collapseWhitespace: true,
+			},
+			hash: true,
 		})
     ],
 	devServer: {
