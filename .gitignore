@@ -4,8 +4,11 @@
 */bower_components/
 */node_modules/
 /node_modules/
+*/dist/
+/dist/
 # menu.json
 .brackets.json
 package-lock.json
 index.html
 index.js
+index.css
