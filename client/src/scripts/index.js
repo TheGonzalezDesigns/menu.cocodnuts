@@ -7,7 +7,7 @@ import router from './network/router'
 const vm = new Vue({
 	el: '#app',
 	data: {
-		options: ['enter', 'view'],
+		options: ['enter', 'view', 'search'],
 		name: '',
 		category: '',
 		price: '',
