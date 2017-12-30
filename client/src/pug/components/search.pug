@@ -1,4 +1,4 @@
-transition(name="fade"): .field.has-addons(v-if="selection == 'view'")
+transition(name="fade"): .field.has-addons(v-if="selection == 'search'")
 	p.control: span.select: select(v-model="searchCategory").options
 		option(value="default" disabled hidden) Select a category...
 		for option in ["name", "category", "price", "description"]
