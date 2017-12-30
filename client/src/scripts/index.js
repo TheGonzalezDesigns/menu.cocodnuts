@@ -353,29 +353,29 @@ const vm = new Vue({
 			this.eraseData()
 		},
 		updateFile(action = 'publish', prep = 'to') {
-			let callback = res => {
-				let upper = this.capatalize(action)
-				let infi = this.infinitize(action)
+			let upper = this.capatalize(action)
+			let ifvalid = res => {
 				if (router.validate(res)) {
 					vm._alert((upper + ' succeeded'), 'successful')
 					vm.cancelData()
-				} else {
-					vm._alert((upper + ' failed.'), 'danger')
-					setTimeout(() => {
-						vm._alert(
-							'This item was ' + infi + prep + ' your temporary menu, here.' + '\n' +
-							'It will be ' + infi + prep + ' your actual menu on the next succesful try' + '\n' +
-							'However, this action may not be applied to your actual menu when you exit this page', '', 5000)
-					}, 4000)
 				}
+			}
+			let iferror = res => {
+				let infi = this.infinitize(action)
+				vm._alert((upper + ' failed.'), 'danger')
+				setTimeout(() => {
+					vm._alert(
+						'This item was ' + infi + ' ' + prep + ' your temporary menu, here.' + '\n' +
+						'It will be ' + infi + ' ' + prep + ' your actual menu on the next succesful try' + '\n' +
+						'However, this action may not be applied to your actual menu when you exit this page', '', 10000)
+				}, 4000)
 			}
 			let data = {
 				'menu': this.menu
 			}
-			//console.log('Publishing..')
-			router.updateMenu(data, callback)
+			router.updateMenu(data, ifvalid, iferror)
 		},
-		_alert(message, type = '', duration = 2500) {
+		_alert(message, type = '', duration = 2500, callback) {
 			this.alert.message = message
 			switch (type) {
 			case 'successful':
@@ -397,19 +397,25 @@ const vm = new Vue({
 			this.alert.show = true
 			setTimeout(function () {
 				vm.alert.show = false
+				callback()
 			}, duration)
 		},
 		initiate() {
 			vm.showTitle = true
-			let callback = res => {
+			let ifvalid = res => {
 				if (router.validate(res)) {
 					let data = res.data
 					vm._alert('Retrieved the menu from the server!', 'successful')
 					vm.menu = data.menu
-				} else this._alert('Could not retrieve the menu from the server. Please reload the page.', 'danger')
+				}
 			}
-			//console.log('Initiating..')
-			router.requestMenu(callback)
+			let iferror = res => {
+				let disableApp = () => {
+					vm.showTitle = false
+				}
+				this._alert('Could not retrieve the menu from the server. Please reload the page.', 'danger', 2500, disableApp)
+			}
+			router.requestMenu(ifvalid, iferror)
 
 		}
 	},
