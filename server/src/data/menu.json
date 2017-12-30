@@ -1,3 +1,19 @@
 {
-	"menu": []
+  "menu": [
+    {
+      "name": "milkshake",
+      "category": "drinks",
+      "price": "9.99",
+      "photo": "http://www.portalsabores.com.br/wp-content/uploads/2014/08/Spiked-Milkshakes.jpg",
+      "description": "Yum!",
+      "index": 0
+    },
+    {
+      "name": "media luna",
+      "category": "pan",
+      "price": "2.99",
+      "photo": "https://thehappening.com/wp-content/uploads/2016/02/cafe-y-pan.jpg",
+      "description": "¡Delicioso!"
+    }
+  ]
 }
