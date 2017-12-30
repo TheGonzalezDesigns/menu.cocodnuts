@@ -1,6 +1,6 @@
-/*global global*/
-import bulma from 'bulma.styl'
-import css from '../styles/index.styl'
+/*eslint no-unused-vars: ["warn", { "vars": "local" }]*/
+/*global styles */
+import styles from './styles'
 import Vue from 'vue'
 import router from './network/router'
 
@@ -61,8 +61,8 @@ const vm = new Vue({
 				this.price &&
 				this.photo &&
 				this.description ?
-				false :
-				true
+					false :
+					true
 			this.disabledReviewButton = disability
 			this.disabledReplaceButton = disability
 		},
@@ -82,7 +82,6 @@ const vm = new Vue({
 			this.photo = data.photo
 			this.description = data.description
 			//this.setBackup()
-			console.log('Name:' + this.name)
 		},
 		transferData(src, dest) {
 			dest.name = src.name
@@ -373,27 +372,27 @@ const vm = new Vue({
 			let data = {
 				'menu': this.menu
 			}
-			console.log('Publishing..')
+			//console.log('Publishing..')
 			router.updateMenu(data, callback)
 		},
 		_alert(message, type = '', duration = 2500) {
 			this.alert.message = message
 			switch (type) {
-				case 'successful':
-					this.alert.class = 'is-success'
-					this.alert.title = 'Success'
-					break
-				case 'danger':
-					this.alert.class = 'is-danger'
-					this.alert.title = 'Danger'
-					break
-				case 'warning':
-					this.alert.class = 'is-warning'
-					this.alert.title = 'Warning'
-					break
-				default:
-					this.alert.class = 'is-info'
-					this.alert.title = 'Attention'
+			case 'successful':
+				this.alert.class = 'is-success'
+				this.alert.title = 'Success'
+				break
+			case 'danger':
+				this.alert.class = 'is-danger'
+				this.alert.title = 'Danger'
+				break
+			case 'warning':
+				this.alert.class = 'is-warning'
+				this.alert.title = 'Warning'
+				break
+			default:
+				this.alert.class = 'is-info'
+				this.alert.title = 'Attention'
 			}
 			this.alert.show = true
 			setTimeout(function () {
@@ -409,7 +408,7 @@ const vm = new Vue({
 					vm.menu = data.menu
 				} else this._alert('Could not retrieve the menu from the server. Please reload the page.', 'danger')
 			}
-			console.log('Initiating..')
+			//console.log('Initiating..')
 			router.requestMenu(callback)
 
 		}
