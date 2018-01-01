@@ -1,5 +1,5 @@
 /*eslint no-unused-vars: ["warn", { "vars": "local" }]*/
-/*global styles */
+/*global styles global*/
 import styles from './styles'
 import Vue from 'vue'
 import router from './network/router'
@@ -7,7 +7,7 @@ import router from './network/router'
 const vm = new Vue({
 	el: '#app',
 	data: {
-		options: ['enter', 'view', 'search'],
+		options: ['view', 'enter', 'search'],
 		name: '',
 		category: '',
 		price: '',
@@ -51,6 +51,25 @@ const vm = new Vue({
 			type: '',
 			message: '',
 			title: ''
+		},
+		filter: {
+			options: [
+				{
+					id: 'name',
+					active: false,
+				},
+				{
+					id: 'price',
+					active: false,
+				},
+				{
+					id: 'category',
+					active: false,
+				},
+			],
+			ascending: true,
+			current: '',
+			data: []
 		}
 	},
 	methods: {
@@ -229,6 +248,7 @@ const vm = new Vue({
 			this.disabledPreview = true
 			this.disabledErrors = true
 			this.overflow = true
+			this.filter.data = this.menu
 		},
 		toggleBodyOverflow() {
 			this.overflow = !this.overflow
@@ -360,7 +380,7 @@ const vm = new Vue({
 					vm.cancelData()
 				}
 			}
-			let iferror = res => {
+			let iferror = () => {
 				let infi = this.infinitize(action)
 				vm._alert((upper + ' failed.'), 'danger')
 				setTimeout(() => {
@@ -405,11 +425,11 @@ const vm = new Vue({
 			let ifvalid = res => {
 				if (router.validate(res)) {
 					let data = res.data
-					vm._alert('Retrieved the menu from the server!', 'successful')
+					//vm._alert('Retrieved the menu from the server!', 'successful')
 					vm.menu = data.menu
 				}
 			}
-			let iferror = res => {
+			let iferror = () => {
 				let disableApp = () => {
 					vm.showTitle = false
 				}
@@ -417,6 +437,34 @@ const vm = new Vue({
 			}
 			router.requestMenu(ifvalid, iferror)
 
+		},
+		filterView(id) {
+			let filter = this.filter
+			let data = filter.data
+			let polarity = {
+				a: -1,
+				b: 1
+			}
+			let callback = (a, b) => {
+				let x = a[id]
+				let y = b[id]
+				if (id == 'price') {
+					x = parseFloat(x)
+					y = parseFloat(y)
+				}
+				return x > y ? polarity.a : x == y ? 0 : polarity.b
+			}
+			filter.options.forEach(option => option.active = option.id == id)
+			if (filter.current == id) {
+				filter.ascending = true
+				filter.current = ''
+			} else {
+				filter.ascending = false
+				filter.current = id
+				polarity.a = 1
+				polarity.b = -1
+			}
+			this.filter.data = data.sort(callback)
 		}
 	},
 	watch: {
