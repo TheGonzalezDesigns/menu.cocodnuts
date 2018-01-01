@@ -3,12 +3,15 @@
 		"start": "npm run git && npm run client && npm run server",
 		"client": "cd client && npm run init && cd .. && cp client/dist/* ./",
 		"server": "cd server && npm run init && cd ..",
-		"client-now": "cd client && npm run start && cd ..",
+		"client-now": "cd client && npm run dev && cd ..",
 		"server-now": "cd server && npm run start && cd ..",
 		"git": "git fetch && git pull origin master",
 		"meta": "npm run git && clear && npm start"
 	},
-	"devDependencies": {
-		"stylint": "^1.5.9"
+	"devDependencies": {},
+	"dependencies": {
+		"D": "^1.0.0",
+		"file-loader": "^1.1.6",
+		"image-webpack-loader": "^3.4.2"
 	}
 }
