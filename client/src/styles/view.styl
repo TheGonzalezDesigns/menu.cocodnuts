@@ -1,9 +1,43 @@
-.view
+$standardWidth = 18vmax
+#view
 	.image
-		max-height 25vmax
+		max-height $standardWidth
 		max-width @max-height
 	.list
-		max-height 40vh
+		max-height 50vh
 		overflow-y auto
-		h2
-			text-transform capitalize
+	.sorts
+		background-color lighten(beige, 60%)
+		background-image linear-gradient(to bottom, #f5f5f5, #fff)
+		text-transform capitalize
+	.column
+		width $standardWidth
+		text-align center
+		max-width @width
+		text-overflow ellipsis
+		text-transform capitalize
+	.columns
+		align-content stretch
+		flex-wrap nowrap
+	#sortby
+		align-self center
+		display flex
+		align-items center
+		justify-content center
+	.arrow-up
+	.arrow-down
+		background-position center center
+		background-repeat no-repeat
+		min-height 3vmin
+		min-width @min-height
+		background-image url('../graphics/icons/chevrons-down.svg')
+		background-size @min-width
+		transition all 0.2s linear
+	.arrow-up
+		transform rotateX(180deg)
+	.tabs a
+		justify-content space-between
+	*
+		font-size responsive
+	.panel-block
+		padding: 0.5em 0.5em;
