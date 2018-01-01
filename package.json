@@ -9,9 +9,5 @@
 		"meta": "npm run git && clear && npm start"
 	},
 	"devDependencies": {},
-	"dependencies": {
-		"D": "^1.0.0",
-		"file-loader": "^1.1.6",
-		"image-webpack-loader": "^3.4.2"
-	}
+	"dependencies": {}
 }
