@@ -14,7 +14,9 @@ const FILES = {
 };
 
 module.exports = {
-	entry: FILES.entry,
+	entry: {
+		main: FILES.entry
+	},
 	output: {
 		path: PATHS.dist,
 		filename: 'index.js',
@@ -47,6 +49,13 @@ module.exports = {
 			{
 				test: /.pug$/,
 				use: 'pug-loader'
+			},
+			{
+				test: /\.(jpe?g|png|gif|svg)$/i,
+				use: [
+					"file-loader?name=graphics/[hash:6].[name].[ext]",
+					'image-webpack-loader'
+				],
 			}
         ],
 	},
@@ -55,7 +64,7 @@ module.exports = {
 			options: {
 				stylus: {
 					use: [poststylus(['autoprefixer', 'rucksack-css'])],
-				},
+				}
 			},
 		}),
         new webpack.optimize.UglifyJsPlugin(),
@@ -74,7 +83,7 @@ module.exports = {
 		contentBase: PATHS.dist,
 		compress: true,
 		port: 8080,
-		stats: 'minimal',
+		//stats: 'minimal',
 		open: true,
 	},
 	resolve: {
@@ -82,5 +91,5 @@ module.exports = {
 			vue: 'vue/dist/vue.js',
 			normalize: 'normalize/index.styl'
 		}
-	}
+	},
 };
