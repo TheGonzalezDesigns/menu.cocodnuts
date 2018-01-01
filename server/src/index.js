@@ -19,4 +19,4 @@ server.post('/publish', (req, res) => {
 	}))
 })
 
-server.listen(process.env.PORT || 8081)
+server.listen(3000)
