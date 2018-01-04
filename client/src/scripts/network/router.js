@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 let client = axios.create({
-	baseURL: 'http://localhost:3000'
+	baseURL: 'http://127.0.0.1:8080'
 })
 
 function validate(res) {

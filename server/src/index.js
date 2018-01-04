@@ -19,4 +19,4 @@ server.post('/publish', (req, res) => {
 	}))
 })
 
-server.listen(3000, 'localhost')
+server.listen(8080, '127.0.0.1')
