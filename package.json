@@ -6,6 +6,7 @@
 		"client-now": "cd client && npm start && cd ..",
 		"client-dev": "cd client && npm run dev && cd ..",
 		"server-now": "cd server && npm run start && cd ..",
+		"server-dev": "cd server && npm run start && cd ..",
 		"git": "git fetch && git pull origin master",
 		"meta": "npm run git && clear && npm start",
 		"quickly": "npm run git && npm run client-now && npm run server-now"
