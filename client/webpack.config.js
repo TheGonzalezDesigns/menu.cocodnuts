@@ -82,7 +82,7 @@ module.exports = {
 	devServer: {
 		contentBase: PATHS.dist,
 		compress: true,
-		port: 8080,
+		port: 3001,
 		//stats: 'minimal',
 		open: true,
 	},
