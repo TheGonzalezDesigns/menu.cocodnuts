@@ -1,17 +1,18 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const poststylus = require('poststylus');
-const webpack = require('webpack');
-const path = require('path');
+/*global require __dirname module*/
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const poststylus = require('poststylus')
+const webpack = require('webpack')
+const path = require('path')
 
 const PATHS = {
 	src: path.join(__dirname, '/src'),
 	dist: path.join(__dirname, '/dist'),
-};
+}
 const FILES = {
 	entry: path.join(PATHS.src, '/scripts/index.js'),
 	template: path.join(PATHS.src, '/pug/index.pug'),
-};
+}
 
 module.exports = {
 	entry: {
@@ -29,7 +30,7 @@ module.exports = {
 					fallback: 'style-loader',
 					use: ['css-loader', 'stylus-loader']
 				}),
-            },
+			},
 			{
 				test: /\.js$/,
 				loader: 'babel-loader',
@@ -37,7 +38,7 @@ module.exports = {
 				options: {
 					presets: ['babel-preset-env']
 				}
-            },
+			},
 			{
 				test: /\.js$/,
 				loader: 'eslint-loader',
@@ -53,21 +54,21 @@ module.exports = {
 			{
 				test: /\.(jpe?g|png|gif|svg)$/i,
 				use: [
-					"file-loader?name=graphics/[hash:6].[name].[ext]",
+					'file-loader?name=graphics/[hash:6].[name].[ext]',
 					'image-webpack-loader'
 				],
 			}
-        ],
+		],
 	},
 	plugins: [
-        new webpack.LoaderOptionsPlugin({
+		new webpack.LoaderOptionsPlugin({
 			options: {
 				stylus: {
 					use: [poststylus(['autoprefixer', 'rucksack-css'])],
 				}
 			},
 		}),
-        new webpack.optimize.UglifyJsPlugin(),
+		new webpack.optimize.UglifyJsPlugin(),
 		new ExtractTextPlugin('index.css'),
 		new HtmlWebpackPlugin({
 			inject: true,
@@ -78,7 +79,7 @@ module.exports = {
 			},
 			hash: true,
 		})
-    ],
+	],
 	devServer: {
 		contentBase: PATHS.dist,
 		compress: true,
@@ -92,4 +93,4 @@ module.exports = {
 			normalize: 'normalize/index.styl'
 		}
 	},
-};
+}
