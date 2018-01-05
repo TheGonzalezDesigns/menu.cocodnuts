@@ -19,4 +19,4 @@ server.post('/publish', (req, res) => {
 	}))
 })
 
-server.listen(80)
+server.listen(8080)
