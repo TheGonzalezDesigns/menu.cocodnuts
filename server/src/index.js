@@ -8,6 +8,8 @@ const server = express()
 server.use(morgan('combined'))
 server.use(bodyParser.json())
 server.use(cors())
+server.set('trust proxy', true);
+server.set('trust proxy', 'loopback');
 
 server.get('/getData', (req, res) => {
 	res.send(handle.get())
