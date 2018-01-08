@@ -2,14 +2,14 @@ transition(name="fade"): nav.panel#view(v-if="selection == 'view'")
 	h1.panel-heading.has-text-centered Total Items: {{this.menu.length}}
 	.sorts.panel-block.is-radiusless
 		.columns.is-multiline.is-mobile.is-centered.has-text-centered
-			h2.column#sortby: em sort by:
 			ul.tabs
 				li.column(v-for="category in filter.options" :class="{'is-active': category.active}" @click="filterView(category.id)"): a
 					span {{category.id}}
 					span.icon: transition(name="fade"): i(:class="{'arrow-up': filter.ascending, 'arrow-down': !filter.ascending}" v-if="category.active")
-	.list: .panel-block.is-radiusless(v-for="item in filter.data")
-		.box.columns.is-multiline.is-mobile
+	.list: .panel-block(v-for="item in filter.data")
+		.box.columns.is-multiline.is-mobile.is-radiusless
 			img.column.is-one-quarter.image(:src="item.photo")
-			h3.column.is-one-quarter {{item.name}}
-			h3.column.is-one-quarter {{item.price}}
-			h3.column.is-one-quarter {{item.category}}
+			.data
+				h3.column.is-one-quarter {{item.name}}
+				h3.column.is-one-quarter {{item.price}}
+				h3.column.is-one-quarter {{item.category}}
