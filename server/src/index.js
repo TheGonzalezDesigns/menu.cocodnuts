@@ -5,10 +5,12 @@ const morgan = require('morgan')
 const handle = require('./handle.js')
 const server = express()
 
+const public = '../../client/public'
+
 server.use(morgan('combined'))
 server.use(bodyParser.json())
 server.use(cors())
-server.use(express.static('public'))
+server.use(express.static(public))
 server.set('trust proxy', true);
 server.set('trust proxy', 'loopback');
 
