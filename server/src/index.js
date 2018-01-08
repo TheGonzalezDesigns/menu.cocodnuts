@@ -8,6 +8,7 @@ const server = express()
 server.use(morgan('combined'))
 server.use(bodyParser.json())
 server.use(cors())
+server.use(express.static('public'))
 server.set('trust proxy', true);
 server.set('trust proxy', 'loopback');
 
