@@ -1,0 +1,26 @@
+#search
+	flex-wrap wrap
+	justify-content center
+	align-items stretch
+	@media (max-width: 900px)
+		*
+			border-radius 0
+		input[type=text]
+			flex-basis 100%
+			flex-grow 1
+		.control
+			&:nth-of-type(1)
+				flex-basis 100%
+				.select
+				select
+					width 100%
+			&:nth-of-type(2)
+				flex-basis 100%
+			&:nth-of-type(3)
+				flex-basis 50%
+				input
+					width 100%
+			&:nth-of-type(4)
+				flex-basis 50%
+				input
+					width 100%
