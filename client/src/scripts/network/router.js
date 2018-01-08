@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 let client = axios.create({
-	baseURL: 'menu.cocodnuts.com'
+	baseURL: 'https://menu.cocodnuts.com'
 })
 
 function validate(res) {
