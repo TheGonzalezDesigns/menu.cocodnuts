@@ -1,8 +1,5 @@
 {
-	"name": "menu.cocodnuts",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"name": "client",
 	"private": true,
 	"scripts": {
 		"start": "webpack --progress",
@@ -10,16 +7,6 @@
 		"pug": "pug src/pug/index.pug -o dist/",
 		"init": "npm i && clear && npm start"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/TheGonzalezDesigns/menu.cocodnuts.git"
-	},
-	"author": "hugo@thegonzalez.design",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/TheGonzalezDesigns/menu.cocodnuts/issues"
-	},
-	"homepage": "https://github.com/TheGonzalezDesigns/menu.cocodnuts#readme",
 	"dependencies": {
 		"axios": "^0.17.1",
 		"bulma.styl": "^0.6.11",
