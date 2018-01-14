@@ -390,9 +390,7 @@ const vm = new Vue({
 						'However, this action may not be applied to your actual menu when you exit this page', '', 10000)
 				}, 4000)
 			}
-			let data = {
-				'menu': this.menu
-			}
+			let data = this.menu
 			router.updateMenu(data, ifvalid, iferror)
 		},
 		_alert(message, type = '', duration = 2500, callback) {
@@ -424,9 +422,9 @@ const vm = new Vue({
 			vm.showTitle = true
 			let ifvalid = res => {
 				if (router.validate(res)) {
-					let data = res.data
+					let data = res.data[0]
 					//vm._alert('Retrieved the menu from the server!', 'successful')
-					vm.menu = data.menu
+					vm.menu = data
 				}
 			}
 			let iferror = () => {
