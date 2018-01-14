@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 let client = axios.create({
-	baseURL: 'https://menu.cocodnuts.com'
+	baseURL: 'menu.cocodnuts.com'
 })
 
 function validate(res) {
@@ -10,11 +10,45 @@ function validate(res) {
 }
 
 function requestMenu(ifvalid, iferror) {
-	client.get('/getData').then(res => ifvalid(res)).catch(err => iferror(err))
+	const req = {
+		route: 'find',
+		type: 'item',
+		data: {
+			meta: {
+				query: {
+					key: 'name'
+				}
+			}
+		}
+	}
+	client.post('/', req).then(res => ifvalid(res)).catch(err => {
+		console.log('error', err)
+		iferror(err)
+	})
 }
 
-function updateMenu(data, ifvalid, iferror) {
-	client.post('/publish', data).then(res => ifvalid(res)).catch(err => iferror(err))
+function updateMenu(original, ifvalid, iferror) {
+	const meta = {
+		query: {
+			key: 'name'
+		}
+	}
+	let req = {
+		route: 'update',
+		type: 'item',
+	}
+	let data = []
+	original.forEach((one) => {
+		let item = {}
+		item['meta'] = meta
+		item['data'] = one
+		data.push(item)
+	})
+	req['data'] = data
+	client.post('/', req).then(res => ifvalid(res)).catch(err => {
+		console.log('error', err)
+		iferror(err)
+	})
 }
 
 exports.validate = validate
