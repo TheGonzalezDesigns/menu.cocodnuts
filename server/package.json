@@ -3,7 +3,7 @@
 	"private": true,
 	"scripts": {
 		"start": "pm2 start ./src/index.js || pm2 update all",
-		"dev": "nodemon -x npm run lint -w ./src",
+		"dev": "npm run lint && nodemon index.js",
 		"lint": "eslint --format=node_modules/eslint-formatter-pretty --fix src/",
 		"init": "npm i && clear && npm start",
 		"test": "mocha ./src/api/tests/*"
