@@ -1,36 +1,25 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const {
-	cartel
-} = require('./cartel')
 const server = express()
-const source = '../client/public/' // ./ = menu.cocodnuts/server/
+const path = require('path')
+const dynamix = require('./dynamix')
+const source = path.resolve(__dirname, '../../client/public/')
+const index = path.join(source, '/index.html')
 
-server.use(cors)
+const port = dynamix.port
+
 server.use(morgan('combined'))
 server.use(express.json({
 	strct: true
 }))
+server.use(cors())
 server.use(express.static(source))
 server.set('trust proxy', true)
 server.set('trust proxy', 'loopback')
 
 server.get('/', (req, res) => {
-	res.sendFile(source + 'index.html')
-})
-/*
-
-server.get('/test', (req, res) => {
-	console.log('testing')
-	res.send("It's alive")
-})
-*/
-
-server.post('/', (req, res) => {
-	console.log('Request Recieved!')
-	const data = cartel(req.body)
-	res.send(data)
+	res.sendFile(index)
 })
 
-server.listen(8081)
+server.listen(port, console.warn(`Listening on ${port}`))
