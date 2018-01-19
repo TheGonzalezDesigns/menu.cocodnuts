@@ -13,6 +13,9 @@ const vm = new Vue({
 		price: '',
 		photo: '',
 		description: '',
+		did: '',
+		modified: false,
+		delete: false,
 		searchValue: '',
 		item: 'default',
 		selection: 'default',
@@ -24,14 +27,20 @@ const vm = new Vue({
 			category: '',
 			price: '',
 			photo: '',
-			description: ''
+			description: '',
+			did: '',
+			delete: false,
+			modified: true,
 		},
 		backup: {
 			name: '',
 			category: '',
 			price: '',
 			photo: '',
-			description: ''
+			description: '',
+			did: '',
+			delete: false,
+			modified: false,
 		},
 		errors: [],
 		errorCodes: [0, 0, 0, 0, 0], //ltr mirrors ttb
@@ -91,7 +100,10 @@ const vm = new Vue({
 				category: this.category,
 				price: this.price,
 				photo: this.photo,
-				description: this.description
+				description: this.description,
+				did: this.did,
+				delete: this.delete,
+				modified: this.modified
 			}
 		},
 		setData(data) {
@@ -100,6 +112,9 @@ const vm = new Vue({
 			this.price = data.price
 			this.photo = data.photo
 			this.description = data.description
+			this.did = data.did
+			this.delete = data.delete
+			this.modified = data.modified
 			//this.setBackup()
 		},
 		transferData(src, dest) {
@@ -108,6 +123,9 @@ const vm = new Vue({
 			dest.price = src.price
 			dest.photo = src.photo
 			dest.description = src.description
+			dest.did = src.did
+			dest.delete = src.delete
+			dest.modified = src.modified
 		},
 		setBackup() {
 			const data = this.getData()
@@ -122,6 +140,9 @@ const vm = new Vue({
 			this.price = ''
 			this.photo = ''
 			this.description = ''
+			this.did = ''
+			this.delete = false
+			this.modified = false
 		},
 		previewData(showSubmitButton = true) {
 			document.activeElement.blur()
@@ -212,7 +233,7 @@ const vm = new Vue({
 				errors.push('The length of the category is too short.')
 				this.errorCodes[1]++
 			}
-			if (this.price.match(priceRegExp) === null) {
+			if ((this.price + '').match(priceRegExp) === null) {
 				errors.push('The price is incorrectly written.')
 				this.errorCodes[2]++
 			}
@@ -337,7 +358,8 @@ const vm = new Vue({
 			this.selection = choice
 		},
 		deleteData() {
-			this.menu.splice(this.index, 1)
+			this.menu[this.index]['delete'] = true
+			//this.menu.splice(this.index, 1)
 			this.search()
 			this.updateFile('delete', 'from')
 
@@ -422,8 +444,9 @@ const vm = new Vue({
 			vm.showTitle = true
 			let ifvalid = res => {
 				if (router.validate(res)) {
-					let data = res.data[0]
-					//vm._alert('Retrieved the menu from the server!', 'successful')
+					let data = res.data
+					vm._alert('Retrieved the menu from the server!', 'successful')
+					data.forEach(one => one.did = one['_id'])
 					vm.menu = data
 				}
 			}
@@ -516,4 +539,4 @@ const vm = new Vue({
 		})
 	}
 })
-//global.vm = vm
+global.vm = vm
