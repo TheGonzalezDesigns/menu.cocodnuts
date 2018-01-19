@@ -2,10 +2,7 @@
 import axios from 'axios'
 
 let client = axios.create({
-	proxy: {
-		host: '127.0.0.1',
-		port: 8081
-	}
+	baseUrl: 'menu.cocodnuts.com'
 })
 
 function validate(res) {
