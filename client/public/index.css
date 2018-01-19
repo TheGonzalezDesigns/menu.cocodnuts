@@ -9529,6 +9529,24 @@ label.panel-block:hover {
 #view .data h3 {
   width: 100%;
 }
+#view .notification {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: calc(12px + 9 * ((100vw - 420px) / 860));
+  letter-spacing: 0.1vw;
+}
+@media screen and (min-width: 1280px) {
+  #view .notification {
+    font-size: 21px;
+  }
+}
+@media screen and (max-width: 420px) {
+  #view .notification {
+    font-size: 12px;
+  }
+}
 body {
   display: -webkit-box;
   display: -ms-flexbox;
