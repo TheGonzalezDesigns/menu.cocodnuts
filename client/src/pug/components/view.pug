@@ -6,10 +6,11 @@ transition(name="fade"): nav.panel#view(v-if="selection == 'view'")
 				li.column(v-for="category in filter.options" :class="{'is-active': category.active}" @click="filterView(category.id)"): a
 					span {{category.id}}
 					span.icon: transition(name="fade"): i(:class="{'arrow-up': filter.ascending, 'arrow-down': !filter.ascending}" v-if="category.active")
-	.list: .panel-block(v-for="item in filter.data")
+	.list: .panel-block(v-for="item in filter.data" v-if="!item.delete")
 		.box.columns.is-multiline.is-mobile.is-radiusless
 			img.column.is-one-quarter.image(:src="item.photo")
 			.data
 				h3.column.is-one-quarter {{item.name}}
 				h3.column.is-one-quarter {{item.price}}
 				h3.column.is-one-quarter {{item.category}}
+	.notification(v-if="menu.length == 0") Menu is empty
