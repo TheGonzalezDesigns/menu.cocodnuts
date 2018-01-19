@@ -2,7 +2,10 @@
 import axios from 'axios'
 
 let client = axios.create({
-	baseURL: 'menu.cocodnuts.com'
+	proxy: {
+		host: '127.0.0.1',
+		port: 8081
+	}
 })
 
 function validate(res) {
@@ -19,20 +22,19 @@ function requestMenu(ifvalid, iferror) {
 					key: 'name'
 				}
 			}
-		}
+		},
+		metaOnly: true
 	}
-	client.post('/', req).then(res => ifvalid(res)).catch(err => {
+	client.post('/', req).then(res => {
+		ifvalid(res)
+		console.log('res', res)
+	}).catch(err => {
 		console.log('error', err)
 		iferror(err)
 	})
 }
 
 function updateMenu(original, ifvalid, iferror) {
-	const meta = {
-		query: {
-			key: 'name'
-		}
-	}
 	let req = {
 		route: 'update',
 		type: 'item',
@@ -40,8 +42,9 @@ function updateMenu(original, ifvalid, iferror) {
 	let data = []
 	original.forEach((one) => {
 		let item = {}
-		item['meta'] = meta
 		item['data'] = one
+		item.meta = {}
+		item['_id'] = item.did
 		data.push(item)
 	})
 	req['data'] = data
