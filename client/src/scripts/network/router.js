@@ -5,11 +5,11 @@ let client = axios.create({
 	baseUrl: 'menu.cocodnuts.com'
 })
 
-function validate(res) {
+exports.validate = (res) => {
 	return (res) && (res.status >= 200) && (res.status < 300)
 }
 
-function requestMenu(ifvalid, iferror) {
+exports.requestMenu = (ifvalid, iferror) => {
 	const req = {
 		route: 'find',
 		type: 'item',
@@ -31,7 +31,7 @@ function requestMenu(ifvalid, iferror) {
 	})
 }
 
-function updateMenu(original, ifvalid, iferror) {
+exports.updateMenu = (original, ifvalid, iferror) => {
 	let req = {
 		route: 'update',
 		type: 'item',
@@ -51,6 +51,21 @@ function updateMenu(original, ifvalid, iferror) {
 	})
 }
 
-exports.validate = validate
-exports.requestMenu = requestMenu
-exports.updateMenu = updateMenu
+exports.signIn = (ifvalid, iferror) => {
+	client.get('/authenticate').then(res => ifvalid(res)).catch(err => {
+		console.log('error', err)
+		iferror(err)
+	})
+}
+exports.signOut = (ifvalid, iferror) => {
+	client.get('/signOut').then(res => ifvalid(res)).catch(err => {
+		console.log('error', err)
+		iferror(err)
+	})
+}
+exports.validateStatus = (ifvalid, iferror) => {
+	client.get('/validate').then(res => ifvalid(res)).catch(err => {
+		console.log('error', err)
+		iferror(err)
+	})
+}

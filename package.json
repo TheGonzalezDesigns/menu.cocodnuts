@@ -13,5 +13,7 @@
 		"quickly": "npm run git && npm run client-now && npm run server-now"
 	},
 	"devDependencies": {},
-	"dependencies": {}
+	"dependencies": {
+		"cookie-session": "^2.0.0-beta.3"
+	}
 }

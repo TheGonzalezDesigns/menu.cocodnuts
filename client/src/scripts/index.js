@@ -20,6 +20,7 @@ const vm = new Vue({
 		item: 'default',
 		selection: 'default',
 		searchCategory: 'default',
+		signedIn: false,
 		menu: [],
 		data: [],
 		edit: {
@@ -89,8 +90,8 @@ const vm = new Vue({
 				this.price &&
 				this.photo &&
 				this.description ?
-					false :
-					true
+				false :
+				true
 			this.disabledReviewButton = disability
 			this.disabledReplaceButton = disability
 		},
@@ -418,21 +419,21 @@ const vm = new Vue({
 		_alert(message, type = '', duration = 2500, callback) {
 			this.alert.message = message
 			switch (type) {
-			case 'successful':
-				this.alert.class = 'is-success'
-				this.alert.title = 'Success'
-				break
-			case 'danger':
-				this.alert.class = 'is-danger'
-				this.alert.title = 'Danger'
-				break
-			case 'warning':
-				this.alert.class = 'is-warning'
-				this.alert.title = 'Warning'
-				break
-			default:
-				this.alert.class = 'is-info'
-				this.alert.title = 'Attention'
+				case 'successful':
+					this.alert.class = 'is-success'
+					this.alert.title = 'Success'
+					break
+				case 'danger':
+					this.alert.class = 'is-danger'
+					this.alert.title = 'Danger'
+					break
+				case 'warning':
+					this.alert.class = 'is-warning'
+					this.alert.title = 'Warning'
+					break
+				default:
+					this.alert.class = 'is-info'
+					this.alert.title = 'Attention'
 			}
 			this.alert.show = true
 			setTimeout(function () {
@@ -440,12 +441,12 @@ const vm = new Vue({
 				callback()
 			}, duration)
 		},
-		initiate() {
+		populate() {
 			vm.showTitle = true
 			let ifvalid = res => {
 				if (router.validate(res)) {
 					let data = res.data
-					vm._alert('Retrieved the menu from the server!', 'successful')
+					//vm._alert('Retrieved the menu from the server!', 'successful')
 					data.forEach(one => one.did = one['_id'])
 					vm.menu = data
 				}
@@ -457,7 +458,22 @@ const vm = new Vue({
 				this._alert('Could not retrieve the menu from the server. Please reload the page.', 'danger', 2500, disableApp)
 			}
 			router.requestMenu(ifvalid, iferror)
-
+		},
+		initiate() {
+			let ifvalid = res => {
+				if (router.validate(res)) {
+					if (res.data) vm.signedIn = true
+					vm.populate()
+				}
+			}
+			let iferror = () => {
+				let disableApp = () => {
+					vm.showTitle = false
+				}
+				this._alert('Could not access the server. Please reload the page.', 'danger', 2500, disableApp)
+			}
+			router.validateStatus(ifvalid, iferror)
+			vm.showTitle = true
 		},
 		filterView(id) {
 			let filter = this.filter
@@ -486,6 +502,35 @@ const vm = new Vue({
 				polarity.b = -1
 			}
 			this.filter.data = data.sort(callback)
+		},
+		signIn() {
+			let ifvalid = res => {
+				if (router.validate(res)) {
+					vm.signedIn = true
+				}
+			}
+			let iferror = () => {
+				let disableApp = () => {
+					vm.showTitle = false
+				}
+				this._alert('Access denied', 'danger', 2500, disableApp)
+			}
+			router.signIn(ifvalid, iferror)
+		},
+		signOut() {
+			let ifvalid = res => {
+				if (router.validate(res)) {
+					//vm._alert('You\'ve been signed out.', 'warn')
+					vm.signedIn = false
+				}
+			}
+			let iferror = () => {
+				let disableApp = () => {
+					vm.showTitle = false
+				}
+				this._alert('You could not be signed out', 'danger', 2500, disableApp)
+			}
+			router.signOut(ifvalid, iferror)
 		}
 	},
 	watch: {
@@ -539,4 +584,4 @@ const vm = new Vue({
 		})
 	}
 })
-global.vm = vm
+//global.vm = vm

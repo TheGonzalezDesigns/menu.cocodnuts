@@ -9401,6 +9401,10 @@ label.panel-block:hover {
   padding: 4vmin 2vmin;
   text-transform: capitalize;
 }
+.options .select,
+.options select {
+  width: 100%;
+}
 #view .image {
   max-height: 18vmax;
   max-width: 18vmax;
@@ -9546,6 +9550,12 @@ label.panel-block:hover {
   #view .notification {
     font-size: 12px;
   }
+}
+#signIn button {
+  width: 100%;
+}
+#signOut button {
+  width: 100%;
 }
 body {
   display: -webkit-box;
