@@ -7,7 +7,11 @@ import router from './network/router'
 const vm = new Vue({
 	el: '#app',
 	data: {
-		options: ['view', 'enter', 'search'],
+		options: ['view', 'enter', 'search', 'manage'],
+		manage: {
+			options: [/*'accounts',*/ 'schedule'],
+			selection: 'default'
+		},
 		name: '',
 		category: '',
 		price: '',
@@ -21,6 +25,11 @@ const vm = new Vue({
 		selection: 'default',
 		searchCategory: 'default',
 		signedIn: false,
+		date: '',
+		opening: '',
+		closing: '',
+		scheduleSubmission: false,
+		scheduleType: 'new',
 		menu: [],
 		data: [],
 		edit: {
@@ -90,8 +99,8 @@ const vm = new Vue({
 				this.price &&
 				this.photo &&
 				this.description ?
-				false :
-				true
+					false :
+					true
 			this.disabledReviewButton = disability
 			this.disabledReplaceButton = disability
 		},
@@ -419,21 +428,21 @@ const vm = new Vue({
 		_alert(message, type = '', duration = 2500, callback) {
 			this.alert.message = message
 			switch (type) {
-				case 'successful':
-					this.alert.class = 'is-success'
-					this.alert.title = 'Success'
-					break
-				case 'danger':
-					this.alert.class = 'is-danger'
-					this.alert.title = 'Danger'
-					break
-				case 'warning':
-					this.alert.class = 'is-warning'
-					this.alert.title = 'Warning'
-					break
-				default:
-					this.alert.class = 'is-info'
-					this.alert.title = 'Attention'
+			case 'successful':
+				this.alert.class = 'is-success'
+				this.alert.title = 'Success'
+				break
+			case 'danger':
+				this.alert.class = 'is-danger'
+				this.alert.title = 'Danger'
+				break
+			case 'warning':
+				this.alert.class = 'is-warning'
+				this.alert.title = 'Warning'
+				break
+			default:
+				this.alert.class = 'is-info'
+				this.alert.title = 'Attention'
 			}
 			this.alert.show = true
 			setTimeout(function () {
@@ -531,6 +540,42 @@ const vm = new Vue({
 				this._alert('You could not be signed out', 'danger', 2500, disableApp)
 			}
 			router.signOut(ifvalid, iferror)
+		},
+		parseDigits(string, a = 0, b = 2) {
+			return parseFloat(string.slice(a, b))
+		},
+		parseHours(string) {
+			return this.parseDigits(string) * 60
+		},
+		parseTime(string) {
+			return this.parseHours(string) + this.parseDigits(string, 3, 5)
+		},
+		reviewTime() {
+			return this.parseTime(this.opening) < this.parseTime(this.closing)
+		},
+		reviewDate() {
+			return Date.parse(this.date) >= Date.now()
+		},
+		reviewSchedule() {
+			return this.reviewDate() && this.reviewTime()
+		},
+		submitSchedule() {
+			const iferror = () => {
+				vm._alert('Could save your schedule. Please reload the page and try again.', 'danger', 2500)
+			}
+			const schedule = {
+				date: this.date,
+				opening: this.opening,
+				closing: this.closing
+			}
+			router.submitSchedule([schedule], iferror)
+			this.resetScheduleData()
+		},
+		enableScheduleSubmission() {
+			this.scheduleSubmission = this.date.length && this.opening.length && this.closing.length && this.reviewSchedule()
+		},
+		resetScheduleData() {
+			this.closing = this.opening = this.date = ''
 		}
 	},
 	watch: {
@@ -576,6 +621,18 @@ const vm = new Vue({
 		selection() {
 			this.resetData()
 			this.resetSearch()
+		},
+		date() {
+			this.enableScheduleSubmission()
+		},
+		opening() {
+			this.enableScheduleSubmission()
+		},
+		closing() {
+			this.enableScheduleSubmission()
+		},
+		scheduleType() {
+			this.date = this.scheduleType === 'new' ? this.date : '2111-11-11'
 		}
 	},
 	mounted() {

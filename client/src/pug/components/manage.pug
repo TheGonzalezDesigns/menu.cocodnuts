@@ -1,0 +1,29 @@
+transition(name="fade"): #manage(v-if="selection == 'manage'")
+	.options: .select: select(v-model="manage.selection" title="Select an option...")
+		option(value="default" disabled hidden) Select an option...
+		option(v-for="option in manage.options" :value="option")="Manage {{ capatalize(option) }}"
+	hr(v-if="manage.selection != 'default'")
+	transition(name="fade"): #accounts(v-if="manage.selection == 'accounts'")
+		h2 accounts
+	transition(name="fade"): #schedule(v-if="manage.selection == 'schedule'")
+		.field.is-grouped.is-grouped-centered.is-horizontal
+			label.label(for="new")
+				input#new.radio(type="radio" name="scheduleType" v-model="scheduleType" value="new" checked="true")
+				| New
+			label.label(for="default")
+				input#default.radio(type="radio" name="scheduleType" v-model="scheduleType" value="default")
+				| Default
+		hr
+		transition(name="fade" v-if="scheduleType == 'new'"): .date
+			label.label Choose a date for the new schedule
+			input.input(type="date" name="date" v-model="date")
+			hr
+		label.label Choose the opening hour(s) for that date
+		input.input(type="time" name="opening" v-model="opening")
+		hr
+		label.label Choose the closing hour(s) for that date
+		input.input(type="time" name="closing" v-model="closing")
+		hr
+		label.label Please note that this uses a 24 hr format
+		hr
+		button.button.is-info(@click="submitSchedule()" :disabled="!scheduleSubmission") Submit Changes

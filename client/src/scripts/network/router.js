@@ -69,3 +69,23 @@ exports.validateStatus = (ifvalid, iferror) => {
 		iferror(err)
 	})
 }
+
+exports.submitSchedule = async (original, iferror) => {
+	let req = {
+		route: 'createSchedule',
+		type: 'schedule',
+	}
+	let data = []
+	original.forEach((one) => {
+		let schedule = {}
+		schedule['data'] = one
+		schedule.meta = {}
+		data.push(schedule)
+	})
+	req['data'] = data
+	try {
+		await client.post('/', req)
+	} catch (err) {
+		iferror(err)
+	}
+}
