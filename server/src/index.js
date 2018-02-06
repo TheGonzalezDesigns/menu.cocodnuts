@@ -52,7 +52,7 @@ server.get('/signIn/redirect', passport.authenticate('google'), (req, res) => {
 });
 server.get('/signOut', (req, res) => {
 	req.logout()
-	res.redirect('/')
+	res.redirect('https://cocodnuts.com')
 })
 server.post('/', async (req, res) => {
 	console.log('Recieved POST\n', req.body)
