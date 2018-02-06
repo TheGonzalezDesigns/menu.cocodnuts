@@ -4,6 +4,8 @@ exports.cors = {
 		const whitelist = [
 			'http://localhost:8081',
 			'http://localhost:8888',
+			'http://menu.cocodnuts.com',
+			'https://menu.cocodnuts.com',
 			'https://accounts.google.com']
 		if (whitelist.indexOf(origin) !== -1) {
 			callback(null, true)
