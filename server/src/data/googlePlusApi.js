@@ -5,6 +5,6 @@ exports.credentials = {
 	'token_uri': 'https://accounts.google.com/o/oauth2/token',
 	'auth_provider_x509_cert_url': 'https://www.googleapis.com/oauth2/v1/certs',
 	'client_secret': '7kooVetTqo-GXMUiJ2cEMbvT',
-	'redirect_uris': ['http://localhost:8081/signIn/redirect'],
-	'javascript_origins': ['http://localhost:8081']
+	'redirect_uris': ['http://menu.cocodnuts.com/signIn/redirect'],
+	'javascript_origins': ['http://menu.cocodnuts.com']
 }
