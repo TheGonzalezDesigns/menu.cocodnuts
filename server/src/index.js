@@ -49,10 +49,13 @@ server.get('/signIn', passport.authenticate('google', {
 
 server.get('/signIn/redirect', passport.authenticate('google'), (req, res) => {
 	res.redirect('/')
-});
+})
 server.get('/signOut', (req, res) => {
 	req.logout()
-	res.redirect('https://cocodnuts.com')
+	res.redirect('/goodbye')
+})
+server.post('/goodbye', (req, res) => {
+	res.send('goodbye')
 })
 server.post('/', async (req, res) => {
 	console.log('Recieved POST\n', req.body)
