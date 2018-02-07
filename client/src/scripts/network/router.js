@@ -24,9 +24,9 @@ exports.requestMenu = (ifvalid, iferror) => {
 	}
 	client.post('/', req).then(res => {
 		ifvalid(res)
-		console.log('res', res)
+		//console.log('res', res)
 	}).catch(err => {
-		console.log('error', err)
+		//console.log('error', err)
 		iferror(err)
 	})
 }
@@ -46,26 +46,26 @@ exports.updateMenu = (original, ifvalid, iferror) => {
 	})
 	req['data'] = data
 	client.post('/', req).then(res => ifvalid(res)).catch(err => {
-		console.log('error', err)
+		//console.log('error', err)
 		iferror(err)
 	})
 }
 
 exports.signIn = (ifvalid, iferror) => {
 	client.get('/authenticate').then(res => ifvalid(res)).catch(err => {
-		console.log('error', err)
+		//console.log('error', err)
 		iferror(err)
 	})
 }
 exports.signOut = (ifvalid, iferror) => {
 	client.get('/signOut').then(res => ifvalid(res)).catch(err => {
-		console.log('error', err)
+		//console.log('error', err)
 		iferror(err)
 	})
 }
 exports.validateStatus = (ifvalid, iferror) => {
 	client.get('/validate').then(res => ifvalid(res)).catch(err => {
-		console.log('error', err)
+		//console.log('error', err)
 		iferror(err)
 	})
 }
