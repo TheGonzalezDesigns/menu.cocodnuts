@@ -54,7 +54,7 @@ server.get('/signOut', (req, res) => {
 	req.logout()
 	res.redirect('/goodbye')
 })
-server.post('/goodbye', (req, res) => {
+server.get('/goodbye', (req, res) => {
 	res.send('goodbye')
 })
 server.post('/', async (req, res) => {
