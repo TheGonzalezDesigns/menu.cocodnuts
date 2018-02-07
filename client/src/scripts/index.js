@@ -527,16 +527,16 @@ const vm = new Vue({
 			router.signIn(ifvalid, iferror)
 		},
 		signOut() {
-			let ifvalid = res => {
+			const disableApp = () => {
+				vm.showTitle = false
+			}
+			const ifvalid = res => {
 				if (router.validate(res)) {
-					//vm._alert('You\'ve been signed out.', 'warn')
+					vm._alert('You\'ve been signed out.', 'warn', 2500, disableApp)
 					vm.signedIn = false
 				}
 			}
-			let iferror = () => {
-				let disableApp = () => {
-					vm.showTitle = false
-				}
+			const iferror = () => {
 				this._alert('You could not be signed out', 'danger', 2500, disableApp)
 			}
 			router.signOut(ifvalid, iferror)
